@@ -3,7 +3,7 @@ package example
 import utest._
 
 
-object TutorialTest extends TestSuite {
+object ScalaJsTest extends TestSuite {
 
   // Initialize App
   TutorialApp.setupUI()

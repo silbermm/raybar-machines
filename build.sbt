@@ -1,6 +1,3 @@
-
-
-
 import sbt.Project.projectToRef
 
 lazy val clients = Seq(raybarMachinesClient)
@@ -43,7 +40,7 @@ lazy val raybarMachinesClient = (project in file("raybar-machines-client")).sett
     "org.scala-js" %%% "scalajs-dom" % "0.8.0",
     "com.lihaoyi" %%% "utest" % "0.3.0" % "test" 
   ),
-  jsDependencies += RuntimeDOM,
+  //jsDependencies += RuntimeDOM,
   scalaJSStage in Global := FastOptStage,
   testFrameworks += new TestFramework("utest.runner.Framework")
 ).enablePlugins(ScalaJSPlugin, ScalaJSPlay).

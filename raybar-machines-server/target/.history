@@ -11,3 +11,6 @@ exit
 run
 reload
 run
+test
+reload
+test

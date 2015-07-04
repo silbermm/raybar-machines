@@ -7,15 +7,15 @@
 		revision="0.1-SNAPSHOT"
 		conf="compile-internal"
 		confs="compile, runtime, test, provided, optional, compile-internal, runtime-internal, test-internal, plugin, sources, docs, pom, scala-tool, phantom-js-jetty"
-		date="20150630011536"/>
+		date="20150703221108"/>
 	<dependencies>
 		<module organisation="org.scala-js" name="scalajs-library_2.11">
-			<revision name="0.6.3" status="release" pubdate="20150511191158" resolver="public" artresolver="public" homepage="http://scala-js.org/" downloaded="true" searched="true" default="false" conf="default, compile, runtime, default(compile), master" position="5">
+			<revision name="0.6.3" status="release" pubdate="20150511191158" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://scala-js.org/" downloaded="false" searched="false" default="false" conf="default, compile, runtime, default(compile), master" position="5">
 				<license name="BSD New" url="https://github.com/scala-js/scala-js/blob/master/LICENSE"/>
-				<metadata-artifact status="successful" details="" size="1717" time="237" location="/home/silbermm/.ivy2/cache/org.scala-js/scalajs-library_2.11/ivy-0.6.3.xml" searched="true" original-local-location="/home/silbermm/.ivy2/cache/org.scala-js/scalajs-library_2.11/ivy-0.6.3.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/scala-js/scalajs-library_2.11/0.6.3/scalajs-library_2.11-0.6.3.pom"/>
+				<metadata-artifact status="no" details="" size="2539" time="0" location="/home/silbermm/.ivy2/cache/org.scala-js/scalajs-library_2.11/ivy-0.6.3.xml" searched="false" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/scala-js/scalajs-library_2.11/0.6.3/scalajs-library_2.11-0.6.3.pom"/>
 				<caller organisation="raybarshared" name="raybarshared_sjs0.6_2.11" conf="compile-internal, compile, provided, optional" rev="0.6.3" rev-constraint-default="0.6.3" rev-constraint-dynamic="0.6.3" callerrev="0.1-SNAPSHOT"/>
 				<artifacts>
-					<artifact name="scalajs-library_2.11" type="jar" ext="jar" status="successful" details="" size="7206767" time="4113" location="/home/silbermm/.ivy2/cache/org.scala-js/scalajs-library_2.11/jars/scalajs-library_2.11-0.6.3.jar">
+					<artifact name="scalajs-library_2.11" type="jar" ext="jar" status="no" details="" size="7206767" time="0" location="/home/silbermm/.ivy2/cache/org.scala-js/scalajs-library_2.11/jars/scalajs-library_2.11-0.6.3.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/org/scala-js/scalajs-library_2.11/0.6.3/scalajs-library_2.11-0.6.3.jar"/>
 					</artifact>
 				</artifacts>
