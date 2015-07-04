@@ -1,14 +1,10 @@
-name := """raybar-machines"""
 
-versionWithGit
 
-scalariformSettings
 
-lazy val root = (project in file(".")).enablePlugins(PlayScala)
+import sbt.Project.projectToRef
 
-ScoverageSbtPlugin.ScoverageKeys.coverageExcludedPackages := "<empty>;controllers.javascript;controllers.ref;securesocial.*;views.*;controllers.*;"
-
-(testOptions in Test) += Tests.Argument(TestFrameworks.ScalaTest, "-u", "target/report")
+lazy val clients = Seq(raybarMachinesClient)
+lazy val scalaV = "2.11.6"
 
 scalacOptions ++= Seq(
   "-feature",
@@ -19,20 +15,48 @@ scalacOptions ++= Seq(
   "-encoding", "UTF-8"
 )
 
-scalaVersion := "2.11.6"
+lazy val raybarServer = (project in file("raybar-machines-server")).settings(
+  name := """raybar-machines""",
+  scalaVersion := scalaV,
+  scalaJSProjects := clients,
+  pipelineStages := Seq(scalaJSProd, gzip),
+  resolvers += "scalaz-bintray" at "https://dl.bintray.com/scalaz/releases",
+  libraryDependencies ++= Seq(
+    "com.vmunier" %% "play-scalajs-scripts" % "0.3.0",
+    cache,
+    specs2 % Test
+  ),
+  routesGenerator := InjectedRoutesGenerator,
+  // Heroku specific
+  herokuAppName in Compile := "raybar-machines",
+  herokuSkipSubProjects in Compile := false
+).enablePlugins(PlayScala).
+  aggregate(clients.map(projectToRef): _*).
+  dependsOn(exampleSharedJvm)
 
-libraryDependencies ++= Seq(
-  jdbc,
-  cache,
-  ws,
- "org.webjars" % "bootstrap" % "3.3.4", 
-  specs2 % Test,
-  "org.scalatestplus" %% "play" % "1.1.0" % Test,
-  "org.scalacheck" %% "scalacheck" % "1.11.1" % Test
-)
+lazy val raybarMachinesClient = (project in file("raybar-machines-client")).settings(
+  scalaVersion := scalaV,
+  persistLauncher := true,
+  persistLauncher in Test := false,
+  sourceMapsDirectories += exampleSharedJs.base / "..",
+  libraryDependencies ++= Seq(
+    "org.scala-js" %%% "scalajs-dom" % "0.8.0",
+    "com.lihaoyi" %%% "utest" % "0.3.0" % "test" 
+  ),
+  jsDependencies += RuntimeDOM,
+  scalaJSStage in Global := FastOptStage,
+  testFrameworks += new TestFramework("utest.runner.Framework")
+).enablePlugins(ScalaJSPlugin, ScalaJSPlay).
+  dependsOn(exampleSharedJs)
 
-resolvers += "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"
+lazy val raybarShared = (crossProject.crossType(CrossType.Pure) in file("raybar-machines-shared")).
+  settings(scalaVersion := scalaV).
+  jsConfigure(_ enablePlugins ScalaJSPlay).
+  jsSettings(sourceMapsBase := baseDirectory.value / "..")
 
-pipelineStages := Seq(uglify, digest)
+lazy val exampleSharedJvm = raybarShared.jvm
+lazy val exampleSharedJs = raybarShared.js
 
-routesGenerator := InjectedRoutesGenerator
+// loads the Play project at sbt startup
+onLoad in Global := (Command.process("project raybarServer", _: State)) compose (onLoad in Global).value
+

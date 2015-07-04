@@ -1,0 +1,13 @@
+run
+reload
+run
+reload
+run
+clean
+reload
+run
+clean
+exit
+run
+reload
+run

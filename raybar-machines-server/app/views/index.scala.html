@@ -1,0 +1,12 @@
+@(message: String)
+
+@main("Welcome to Play") {
+  <h2>Play and Scala.js share a same message</h2>
+  <ul>
+      <li>Play shouts out: <em>@message</em></li>
+        <li>Scala.js shouts out: <em id="scalajsShoutOut"></em></li>
+  </ul>
+
+  <button id="click-me-button" type="button" onclick="example.ScalaJSExample().addClickedMessage()">Click me!</button>  
+
+}
